@@ -3,10 +3,14 @@
 // merge in the webpack.common.js file
 const { merge } = require('webpack-merge');
 // will take html file and inject the bundle.js file into it
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 // import the common config
 const commonConfig = require('./webpack.common');
+// one way to automate the shared dependencies
+// is to give the list of dependencies from package.json
+// to webpack
+const packageJson = require('../package.json');
 
 // configuration for development env
 const devConfig = {
@@ -25,9 +29,7 @@ const devConfig = {
         // the name of the remote app must match the name in the remote app's webpack config
         marketing: 'marketing@http://localhost:8081/remoteEntry.js'
       },
-    }),
-    new HtmlWebpackPlugin({
-      template: './public/index.html'
+      shared: packageJson.dependencies,
     }),
   ]
 }

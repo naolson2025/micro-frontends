@@ -7,6 +7,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 // import the common config
 const commonConfig = require('./webpack.common');
+// import the package.json file
+const packageJson = require('../package.json');
 
 // configuration for development env
 const devConfig = {
@@ -25,8 +27,19 @@ const devConfig = {
       name: 'marketing',
       filename: 'remoteEntry.js',
       exposes: {
-        './Marketing': './src/bootstrap'
+        './MarketingApp': './src/bootstrap'
       },
+      // if another project already imported faker
+      // then don't import it again and use the existing one
+      shared: packageJson.dependencies,
+      // ** dif way to import shared modules **
+      // singleton: true means that only one instance of faker
+      // will be used in the entire application
+      // shared: {
+      //   faker: {
+      //     singleton: true,
+      //   }
+      // }
     }),
   ]
 }

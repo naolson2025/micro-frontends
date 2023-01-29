@@ -2,6 +2,8 @@
 
 // babel is used to transpile JS
 // into an older version of JS that older & newer browsers can understand
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 
 module.exports = {
   module: {
@@ -21,5 +23,10 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './public/index.html'
+    }),
+  ]
 }
