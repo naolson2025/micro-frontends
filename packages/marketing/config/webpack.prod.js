@@ -7,6 +7,8 @@ const prodConfig = {
   mode: 'production',
   output: {
     filename: '[name].[contenthash].js',
+    // point the remoteEntry app to the domain in our S3 bucket
+    publicPath: '/marketing/latest/',
   },
   plugins: [
     new ModuleFederationPlugin({
