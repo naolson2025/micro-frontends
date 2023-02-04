@@ -15,6 +15,9 @@ const packageJson = require('../package.json');
 // configuration for development env
 const devConfig = {
   mode: 'development',
+  output: {
+    publicPath: 'http://localhost:8080/'
+  },
   devServer: {
     port: 8080,
     historyApiFallback: {
@@ -27,7 +30,8 @@ const devConfig = {
       remotes: {
         // the name of the remote app and the url to the remote app
         // the name of the remote app must match the name in the remote app's webpack config
-        marketing: 'marketing@http://localhost:8081/remoteEntry.js'
+        marketing: 'marketing@http://localhost:8081/remoteEntry.js',
+        auth: 'auth@http://localhost:8082/remoteEntry.js',
       },
       shared: packageJson.dependencies,
     }),
